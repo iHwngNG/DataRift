@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "terraform-style-guide": {
+      "source": "hashicorp/agent-skills",
+      "sourceType": "github",
+      "skillPath": "terraform/code-generation/skills/terraform-style-guide/SKILL.md",
+      "computedHash": "08a999e2ddf01d83f3dc9775f5f8502e37f731e424f41840090ea53651e2ede7"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+# ==============================================================================
+# DataRift: Git Ignore Configuration
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Terraform Configurations & Local States
+# ------------------------------------------------------------------------------
+# Ignore all local terraform runtime metadata and lock states
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Ignore local overrides
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore state lock files
+.terraform.tfstate.lock.info
+
+# Ignore custom secret variables
+*.tfvars
+*.tfvars.json
+
+# ALLOW specific pre-defined placeholder/demo tfvars files to be committed
+!infra/env/dev/terraform.tfvars
+!infra/env/prod/terraform.tfvars
+
+# ------------------------------------------------------------------------------
+# Python 3.14 Compiler & Runtime Environment
+# ------------------------------------------------------------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# PEP 582 pod templates
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# ------------------------------------------------------------------------------
+# dbt (Data Build Tool) Compile Artifacts
+# ------------------------------------------------------------------------------
+# Ignore dbt log files, target compiler folders and downloaded packages
+**/target/
+**/dbt_modules/
+**/dbt_packages/
+**/logs/
+
+# ------------------------------------------------------------------------------
+# IDEs, Text Editors, and System Metadata
+# ------------------------------------------------------------------------------
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains (PyCharm, IntelliJ, etc.)
+.idea/
+
+# Editor temporary backup files
+*~
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
