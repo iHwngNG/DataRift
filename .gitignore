@@ -25,6 +25,9 @@ override.tf.json
 *.tfvars
 *.tfvars.json
 
+# Ignore memory bank
+memory-bank/
+
 # ALLOW specific pre-defined placeholder/demo tfvars files to be committed
 !infra/env/dev/terraform.tfvars
 !infra/env/prod/terraform.tfvars
