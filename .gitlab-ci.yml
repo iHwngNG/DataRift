@@ -1,0 +1,26 @@
+stages:
+  - lint
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - .venv/
+
+lint-python:
+  stage: lint
+  image: python:3.12-slim
+  before_script:
+    - python -V
+    - pip install --upgrade pip
+    - pip install ruff
+  script:
+    - ruff check src/ tests/
+    - ruff format --check src/ tests/
+  allow_failure: false
+  only:
+    - merge_requests
+    - main
+    - dev
