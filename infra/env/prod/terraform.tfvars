@@ -4,3 +4,5 @@
 
 project_id = "datarift-demo-prod"
 region     = "us-central1"
+
+fetch_users_jobs = {}
