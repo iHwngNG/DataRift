@@ -20,8 +20,10 @@ provider "google" {
 
 # Instantiate the GCS base module from the parent directory
 module "gcs_base" {
-  source      = "../../"
-  project_id  = var.project_id
-  region      = var.region
-  environment = "dev"
+  source               = "../../"
+  project_id           = var.project_id
+  region               = var.region
+  environment          = "dev"
+  fetch_users_jobs     = var.fetch_users_jobs
+  parquet_writer_jobs  = var.parquet_writer_jobs
 }
