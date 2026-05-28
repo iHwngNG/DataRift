@@ -25,9 +25,6 @@ override.tf.json
 *.tfvars
 *.tfvars.json
 
-# Ignore memory bank
-memory-bank/
-
 # ALLOW specific pre-defined placeholder/demo tfvars files to be committed
 !infra/env/dev/terraform.tfvars
 !infra/env/prod/terraform.tfvars
@@ -66,9 +63,7 @@ MANIFEST
 # Virtual environments
 .env
 .venv
-env/
 venv/
-ENV/
 env.bak/
 venv.bak/
 
@@ -116,3 +111,15 @@ celerybeat.pid
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Ignore memory bank
+memory-bank/
+
+# Ignore ruff cache
+.ruff_cache/
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore Agent workspace
+workspace/
