@@ -15,7 +15,7 @@
 # not the ingestion execution datetime.
 # ------------------------------------------------------------------------------
 resource "google_storage_bucket" "bronze_raw" {
-  name          = "datarift-lol-lakehouse-${var.project_id}-${var.environment}"
+  name          = "datarift-lol-lakehouse-${var.project_id}"
   location      = var.region
   storage_class = var.storage_class
 
@@ -53,7 +53,7 @@ resource "google_storage_bucket" "bronze_raw" {
 # Silver Layer: Structured data in Parquet format with Apache Iceberg metadata
 # ------------------------------------------------------------------------------
 resource "google_storage_bucket" "silver_lakehouse" {
-  name          = "datarift-silver-${var.project_id}-${var.environment}"
+  name          = "datarift-silver-${var.project_id}"
   location      = var.region
   storage_class = "STANDARD"
 
