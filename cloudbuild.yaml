@@ -1,0 +1,20 @@
+steps:
+  # 1. Build fetch-users image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'asia-southeast3-docker.pkg.dev/datarift-dev/datarift-docker-repo/fetch-users:latest',
+      '-f', 'jobs/fetch_users/Dockerfile',
+      '.'
+    ]
+  # 2. Build parquet-writer image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'asia-southeast3-docker.pkg.dev/datarift-dev/datarift-docker-repo/parquet-writer:latest',
+      '-f', 'jobs/parquet_writer/Dockerfile',
+      '.'
+    ]
+images:
+  - 'asia-southeast3-docker.pkg.dev/datarift-dev/datarift-docker-repo/fetch-users:latest'
+  - 'asia-southeast3-docker.pkg.dev/datarift-dev/datarift-docker-repo/parquet-writer:latest'
