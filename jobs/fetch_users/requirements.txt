@@ -1,0 +1,13 @@
+# Runtime dependencies for the fetch_users Cloud Run Job
+
+# HTTP client
+requests>=2.32.0
+
+# Parquet serialisation and Arrow in-memory format
+pyarrow>=16.0.0
+
+# GCS SDK
+google-cloud-storage>=2.17.0
+
+# Pub/Sub publisher SDK
+google-cloud-pubsub>=2.22.0
