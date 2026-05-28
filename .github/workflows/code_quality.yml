@@ -36,7 +36,7 @@ jobs:
         run: ruff format --check src/ tests/
 
       - name: Run mypy Type Safety Checks
-        run: mypy src/ tests/
+        run: mypy --explicit-package-bases src/ tests/
 
       - name: Run pytest Unit Tests
         env:
