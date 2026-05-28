@@ -87,11 +87,13 @@ class GCSConfig:
         return f"{self.match_prefix}/{region}/{platform}/{year}/{month:02d}/{day:02d}/"
 
     def build_league_prefix(
-        self, tier: str, rank: str = None, league_points: int = None
+        self, tier: str, rank: str | None = None, league_points: int | None = None
     ) -> str:
         """Build a fully-qualified GCS object prefix for league data."""
         if tier.upper() in ["MASTER", "GRANDMASTER", "CHALLENGER"]:
             return f"{self.league_prefix}/{tier.upper()}/{league_points}/"
+        if rank is None:
+            raise ValueError(f"Rank is required for standard tier {tier}")
         return f"{self.league_prefix}/{tier.upper()}/{rank.upper()}/"
 
     def build_static_prefix(self, data_type: str) -> str:
