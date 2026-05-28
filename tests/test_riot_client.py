@@ -9,10 +9,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.clients.riot_client import RiotClient
 
+
 class TestRiotClient(unittest.TestCase):
     def setUp(self):
         self.api_key = "RGAPI-mock-key"
-        self.client = RiotClient(api_key=self.api_key, platform="kr", max_retries=2, backoff_factor=0.1)
+        self.client = RiotClient(
+            api_key=self.api_key, platform="kr", max_retries=2, backoff_factor=0.1
+        )
 
     def test_initialization_and_routing(self):
         # Platform 'kr' should map to region 'asia'
@@ -40,7 +43,7 @@ class TestRiotClient(unittest.TestCase):
             "GET",
             "https://kr.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I",
             params={"page": 1},
-            timeout=10
+            timeout=10,
         )
 
     @patch("time.sleep", return_value=None)
@@ -84,7 +87,7 @@ class TestRiotClient(unittest.TestCase):
         res = self.client.get_match_ids_by_puuid("some-puuid")
         self.assertEqual(res, {"status": "recovered_5xx"})
         self.assertEqual(mock_request.call_count, 3)
-        
+
         # Sleeps: attempt 0: backoff_factor * 2^0 = 0.1 * 1 = 0.1
         # attempt 1: backoff_factor * 2^1 = 0.1 * 2 = 0.2
         mock_sleep.assert_any_call(0.1)
@@ -102,6 +105,7 @@ class TestRiotClient(unittest.TestCase):
             self.client.get_latest_version()
 
         self.assertEqual(mock_request.call_count, 3)
+
 
 if __name__ == "__main__":
     unittest.main()
