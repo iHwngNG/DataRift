@@ -1,6 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import requests
+import sys
+from pathlib import Path
+
+# Add project root to sys.path to allow execution from any context
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from src.clients.riot_client import RiotClient
 
 class TestRiotClient(unittest.TestCase):
