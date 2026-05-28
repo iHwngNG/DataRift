@@ -121,5 +121,8 @@ memory-bank/
 # Ignore pytest cache
 .pytest_cache/
 
+#Ignore mypy cahce
+.mypy_cache/
+
 # Ignore Agent workspace
 workspace/
