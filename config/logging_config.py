@@ -54,9 +54,9 @@ class _JsonFormatter(logging.Formatter):
             "service": self._service_name,
         }
         if self._include_timestamp:
-            payload["time"] = (
-                datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat()
-            )
+            payload["time"] = datetime.fromtimestamp(
+                record.created, tz=timezone.utc
+            ).isoformat()
         if record.exc_info:
             payload["exception"] = self.formatException(record.exc_info)
         return json.dumps(payload, ensure_ascii=False)
@@ -154,7 +154,12 @@ class LoggingConfig:
             fmt_parts = []
             if self.include_timestamp:
                 fmt_parts.append("%(asctime)s")
-            fmt_parts += ["%(levelname)-8s", f"[{self.service_name}]", "%(name)s", "%(message)s"]
+            fmt_parts += [
+                "%(levelname)-8s",
+                f"[{self.service_name}]",
+                "%(name)s",
+                "%(message)s",
+            ]
             handler.setFormatter(logging.Formatter(" | ".join(fmt_parts)))
 
         root.addHandler(handler)
