@@ -95,9 +95,7 @@ class RiotClient:
         self.api_key = api_key
         self.platform = platform.lower()
         self.region = (
-            region.lower()
-            if region
-            else _REGIONAL_HOSTS.get(self.platform, "asia")
+            region.lower() if region else _REGIONAL_HOSTS.get(self.platform, "asia")
         )
         self.max_retries = max_retries
         self.backoff_factor = backoff_factor
@@ -210,10 +208,7 @@ class RiotClient:
             for entry in entries:
                 print(entry["puuid"], entry["leaguePoints"])
         """
-        url = (
-            f"{self._platform_url}/lol/league/v4/entries"
-            f"/{queue}/{tier}/{division}"
-        )
+        url = f"{self._platform_url}/lol/league/v4/entries/{queue}/{tier}/{division}"
         return self._get(url, params={"page": page})
 
     # -----------------------------------------------------------------------
@@ -242,10 +237,7 @@ class RiotClient:
         Returns:
             List of match ID strings, e.g. ``["KR_8212408629", ...]``.
         """
-        url = (
-            f"{self._regional_url}/lol/match/v5/matches"
-            f"/by-puuid/{puuid}/ids"
-        )
+        url = f"{self._regional_url}/lol/match/v5/matches/by-puuid/{puuid}/ids"
         params: dict[str, Any] = {"count": count, "start": start}
         if queue is not None:
             params["queue"] = queue
@@ -316,9 +308,7 @@ class RiotClient:
             ``icon``, ``name``, and nested ``slots`` → ``runes`` records.
         """
         version = version or self.get_latest_version()
-        url = (
-            f"{_DATA_DRAGON_BASE}/cdn/{version}/data/en_US/runesReforged.json"
-        )
+        url = f"{_DATA_DRAGON_BASE}/cdn/{version}/data/en_US/runesReforged.json"
         return self._get(url)
 
     def get_items(self, version: str | None = None) -> dict:
