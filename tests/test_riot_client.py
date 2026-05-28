@@ -1,8 +1,9 @@
-import unittest
-from unittest.mock import patch, MagicMock
-import requests
 import sys
+import unittest
 from pathlib import Path
+from unittest.mock import MagicMock, patch
+
+import requests
 
 # Add project root to sys.path to allow execution from any context
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
