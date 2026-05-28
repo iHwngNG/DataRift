@@ -55,12 +55,8 @@ class PipelineConfig:
             match_count_per_player=int(os.getenv("PIPELINE_MATCH_COUNT", "20")),
             request_timeout=int(os.getenv("PIPELINE_REQUEST_TIMEOUT", "30")),
             queue_id=int(os.getenv("PIPELINE_QUEUE_ID", "420")),
-            tiers=_parse_list(
-                os.getenv("PIPELINE_TIERS", "DIAMOND,PLATINUM")
-            ),
-            divisions=_parse_list(
-                os.getenv("PIPELINE_DIVISIONS", "I,II,III,IV")
-            ),
+            tiers=_parse_list(os.getenv("PIPELINE_TIERS", "DIAMOND,PLATINUM")),
+            divisions=_parse_list(os.getenv("PIPELINE_DIVISIONS", "I,II,III,IV")),
         )
 
     @property
@@ -73,8 +69,4 @@ class PipelineConfig:
             List of ``(tier, division)`` tuples, e.g.
             ``[("DIAMOND", "I"), ("DIAMOND", "II"), ...]``.
         """
-        return [
-            (tier, division)
-            for tier in self.tiers
-            for division in self.divisions
-        ]
+        return [(tier, division) for tier in self.tiers for division in self.divisions]
