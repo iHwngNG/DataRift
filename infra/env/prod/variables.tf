@@ -8,3 +8,15 @@ variable "region" {
   type        = string
   default     = "us-central1"
 }
+
+variable "fetch_users_jobs" {
+  description = "Configuration for fetch_users Cloud Run Jobs"
+  type = map(object({
+    platform  = string
+    region    = string
+    tiers     = string
+    divisions = string
+    max_pages = string
+  }))
+  default = {}
+}
