@@ -102,6 +102,7 @@ lines-after-imports = 2
 python_version = "3.14"
 strict = true
 warn_unused_configs = true
+mypy_path = "src"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 check_untyped_defs = true
@@ -110,6 +111,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 warn_no_return = true
 warn_return_any = true
+explicit_package_bases = true
 
 [[tool.mypy.overrides]]
 module = "pyiceberg.*"
@@ -122,6 +124,26 @@ ignore_missing_imports = true
 [[tool.mypy.overrides]]
 module = "httpx.*"
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "pyarrow.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tenacity.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "yaml.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "pytest.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
 
 [tool.pytest.ini_options]
 minversion = "8.0"
@@ -138,3 +160,10 @@ markers = [
 
 [tool.pre-commit-ci]
 autofix_commit_msg = "style: pre-commit fixes"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+]

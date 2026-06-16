@@ -1,0 +1,611 @@
+# =============================================================================
+# .gitignore - Comprehensive gitignore for DataRift
+# =============================================================================
+
+# =============================================================================
+# SENSITIVE / SECURITY FILES
+# =============================================================================
+
+# Credentials & Secrets
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.ovpn
+*.sh
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
+*.secret
+credentials.json
+secrets.json
+service-account.json
+*.credentials
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+authorized_keys
+known_hosts
+
+# Database & Config with credentials
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+config.local.*
+settings.local.*
+
+# =============================================================================
+# LOGS & TEMPORARY FILES
+# =============================================================================
+
+*.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+._*
+.Spotlight-V100
+.Trashes
+.Trash-*
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+*.sublime-project
+*.sublime-workspace
+.vim/
+*.viminfo
+
+# =============================================================================
+# BUILD OUTPUT & COMPILATION
+# =============================================================================
+
+# .NET / C#
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+*.exe~
+*.pdb
+*.user
+*.suo
+*.cache
+*.ilk
+*.log
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*.bak
+*.pid
+*.lock
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Java / Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+*.whl
+*.jar
+*.class
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+yarn.lock
+package-lock.json
+package-lock.bak
+pnpm-lock.yaml
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.cache
+
+# Go
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+go.work.sum
+
+# Rust
+/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+*.wasm
+*.rlib
+
+# Ruby / Rails
+*.bundle
+.byebug_history
+.rspec_status
+Gemfile.lock
+node_modules/
+public/packs
+public/packs-test
+yarn-error.log
+yarn.lock
+!/package.json
+!/yarn.lock
+.env
+
+# PHP / Laravel
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+/.env.backup
+/.env.production
+/.phpunit.cache
+Homestead.json
+Homestead.yaml
+auth.json
+.phpunit.result.cache
+storage/*.key
+public/storage
+public/hot
+
+# Elixir / Phoenix
+/_build/
+/cover/
+/deps/
+/priv/static/
+.ixir_coverage/
+mix.lock
+erlang.mk
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfplan
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+*.retry
+*.rpl
+.terraform.d/
+*.backup
+*.tfvars
+
+# =============================================================================
+# TESTING & COVERAGE
+# =============================================================================
+
+tests/
+test/
+_tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+*.bench.js
+*.bench.ts
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+jest-junit/
+TEST_*.xml
+test-results/
+playwright-report/
+playwright/.cache/
+mochawesome-report/
+screenshot/
+
+# Vitest
+*.tsbuildinfo
+vitest.workspace.ts
+
+# =============================================================================
+# CI/CD & DEPLOYMENT
+# =============================================================================
+
+.github/
+.gitlab-ci.yml
+.travis.yml
+bitbucket-pipelines.yml
+appveyor.yml
+circle.yml
+Jenkinsfile
+azure-pipelines.yml
+.github/workflows/*
+
+# Docker
+.dockerignore
+
+# Serverless
+.serverless/
+.serverless_plugins/
+
+# CloudFormation
+*.template
+
+# Amplify
+.amplify/
+
+# =============================================================================
+# DOCUMENTATION GENERATED
+# =============================================================================
+
+site/
+*.markdown
+README.md
+CHANGELOG.md
+HISTORY.md
+CONTRIBUTING.md
+
+# =============================================================================
+# IDE & EDITOR FILES
+# =============================================================================
+
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.vscodeignore
+*.code-workspace
+
+.idea/
+*.ipr
+*.iml
+*.iws
+.idea_modules/
+atlassian-ide-plugin.xml
+
+*.sublime-*
+*.sublime-project
+*.sublime-workspace
+
+# Eclipse
+.settings/
+.classpath
+.externalToolBuilders/
+*.shelf
+*.launch
+*.bak
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IntelliJ
+*.iml
+out/
+.idea/
+*.ipr
+*.iws
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+*~
+auto/
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.cache
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+node_modules/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# =============================================================================
+# PACKAGE MANAGER LOCK FILES (Optional - uncomment if needed)
+# =============================================================================
+
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# composer.lock
+# Gemfile.lock
+# Pipfile.lock
+# poetry.lock
+# go.sum
+
+# =============================================================================
+# LOCAL DEVELOPMENT
+# =============================================================================
+
+*.local
+.vscode-test/
+out/
+.tmp/
+.temp/
+.cache/
+.tun/
+.gen/
+.rollup.cache/
+.swc/
+.eslintcache
+.stylelintcache
+
+# Python Linting & Formatting
+.ruff_cache/
+.ruff/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+*.pyi
+
+# AI Agent & IDE Caches
+.cursors/
+.cursor/
+.agents/
+.claude/
+.cursor-ide/
+.cursorai/
+
+# Local configs
+local.settings.json
+appsettings.Development.json
+appsettings.Local.json
+config.*.local.json
+
+# =============================================================================
+# 3RD PARTY DEPENDENCIES (Platform specific)
+# =============================================================================
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.snupkg
+
+# CocoaPods
+Pods/
+Podfile.lock
+*.xcworkspace
+
+# Swift Package Manager
+.swiftpm/
+xcuserdata/
+
+# Unity
+[Ll]ibrary/
+[Ll]ogs/
+[Ll]ocal/
+[Ll]og/
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Aa]ssets/External/
+*.stackdump
+*[Mm]emory-[Ll]eaks*[Mm]aster.asset
+*[Aa]ssets/[Ss]treamingAssets/
+
+# Godot
+.import/
+export.cfg
+export_presets.cfg
+
+# Unreal Engine
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Builds/
+
+# Blender
+*.blend1
+*.blend2
+*.blend3
+*.bkg
+*.bmap
+
+# Maya
+*.ma
+*.mb
+*.psd
+*.psb
+*.mbp
+
+# =============================================================================
+# CLOUD & INFRASTRUCTURE
+# =============================================================================
+
+# AWS
+.aws/
+credentials
+config
+
+# GCP
+*.gcloud/
+application_default_credentials.json
+adc.json
+
+# Azure
+.azure/
+
+# Firebase
+firebase-debug.log
+firebase-debug.*.log
+
+# Supabase
+.branches/
+supabase/
+
+# =============================================================================
+# DATABASE FILES
+# =============================================================================
+
+*.sqlite
+*.sqlite3
+*.db
+*.mdf
+*.ldf
+*.bak
+*.trn
+*.backup
+*.sdf
+*.db-shm
+*.db-wal
+
+# =============================================================================
+# MEDIA & ASSETS (Optional - uncomment if large media shouldn't be tracked)
+# =============================================================================
+
+# *.mp3
+# *.mp4
+# *.avi
+# *.mov
+# *.wmv
+# *.flv
+# *.mkv
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# *.bmp
+# *.svg
+# *.ico
+# *.webp
+# *.psd
+# *.ai
+# *.pdf
+# !public/images/logo.png
+
+# =============================================================================
+# OTHER
+# =============================================================================
+
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.c9/
+.kite/
+.smapi/
+.scannerwork/
+*.orig
+*.rej
+*.merge
+*.diff
+*.patch
