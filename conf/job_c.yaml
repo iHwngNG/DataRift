@@ -1,0 +1,27 @@
+# =============================================================================
+# Job C: Match Data Ingestion Configuration
+# =============================================================================
+
+# Sharding
+sharding:
+  shard_count: 4
+
+# Thread pool
+thread_pool_size: 8
+
+# Parquet buffer size (MB) - larger for match data
+buffer_flush_mb: 32
+
+# Platforms to process
+platforms:
+  - kr
+  - vn2
+  - euw1
+  - eun1
+
+# Platform to Region mapping
+platform_region:
+  kr: asia
+  vn2: sea
+  euw1: europe
+  eun1: europe

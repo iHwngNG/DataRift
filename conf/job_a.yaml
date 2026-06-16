@@ -1,0 +1,48 @@
+# =============================================================================
+# Job A: User (League) Ingestion Configuration
+# =============================================================================
+
+# Sharding (shared across jobs B & C)
+sharding:
+  shard_count: 4
+
+# Platforms to process
+platforms:
+  - kr
+  - vn2
+  - euw1
+  - eun1
+
+# Platform to Region mapping
+platform_region:
+  kr: asia
+  vn2: sea
+  euw1: europe
+  eun1: europe
+
+# Tiers and divisions
+tiers:
+  - iron
+  - bronze
+  - silver
+  - gold
+  - platinum
+  - emerald
+  - diamond
+
+apex_tiers:
+  - challenger
+  - grandmaster
+  - master
+
+divisions:
+  - I
+  - II
+  - III
+  - IV
+
+# Parquet buffer size (MB)
+buffer_flush_mb: 4
+
+# API concurrency
+max_concurrent_requests: 4

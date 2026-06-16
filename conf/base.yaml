@@ -1,0 +1,41 @@
+# =============================================================================
+# DataRift Base Configuration
+# =============================================================================
+# Shared configuration across all jobs (no job-specific settings here)
+
+gcs:
+  bucket: datarift-lakehouse
+  project_id: ${GCP_PROJECT_ID}
+  region: us-central1
+
+# GCS folder structure
+paths:
+  league: league/
+  match_id: matchID/
+  match: match/
+  workspace_puuid: workspace/puuid/
+  workspace_matchid: workspace/matchid/
+  iceberg: iceberg/
+
+# Riot API configuration
+riot_api:
+  base_url: https://{region}.api.riotgames.com
+  match_v5_url: https://{cluster}.api.riotgames.com
+  timeout_seconds: 30
+  max_retries: 5
+
+# Concurrency defaults
+concurrency:
+  default_thread_pool_size: 8
+  max_concurrent_requests: 50
+
+# Logging
+logging:
+  level: INFO
+  format: json
+  include_context: true
+
+# Monitoring
+monitoring:
+  enabled: true
+  log_run_summary: true

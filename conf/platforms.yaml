@@ -1,0 +1,49 @@
+# =============================================================================
+# DataRift Platform Configuration
+# =============================================================================
+# Platform-specific settings and region mappings
+
+# Platform to Region mapping (for Match API routing)
+platforms:
+  - id: kr
+    region: asia
+    display_name: Korea
+    api_platform: kr
+    shard_id: 0
+
+  - id: vn2
+    region: sea
+    display_name: Vietnam
+    api_platform: vn2
+    shard_id: 1
+
+  - id: euw1
+    region: europe
+    display_name: Europe West
+    api_platform: euw1
+    shard_id: 2
+
+  - id: eun1
+    region: europe
+    display_name: Europe Nordic & East
+    api_platform: eun1
+    shard_id: 3
+
+# Region to API cluster mapping
+regions:
+  asia:
+    match_api_cluster: asia
+    api_gateway: https://asia.api.riotgames.com
+  sea:
+    match_api_cluster: sea
+    api_gateway: https://sea.api.riotgames.com
+  europe:
+    match_api_cluster: europe
+    api_gateway: https://europe.api.riotgames.com
+
+# Platform list for Job A (loop through all)
+platform_list:
+  - kr
+  - vn2
+  - euw1
+  - eun1

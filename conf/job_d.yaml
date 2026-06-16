@@ -1,0 +1,32 @@
+# =============================================================================
+# Job D: Iceberg Metadata Sync Configuration
+# =============================================================================
+
+# Iceberg catalog
+catalog:
+  type: bigquery
+  warehouse: gs://datarift-lakehouse/iceberg
+
+# Iceberg tables to sync
+tables:
+  - name: datarift.league
+    gcs_path: league/
+    partition_by:
+      - region
+      - platform
+      - tier
+      - division
+
+  - name: datarift.match_id
+    gcs_path: matchID/
+    partition_by:
+      - region
+      - platform
+
+  - name: datarift.match
+    gcs_path: match/
+    partition_by:
+      - region
+      - platform
+      - year
+      - month
