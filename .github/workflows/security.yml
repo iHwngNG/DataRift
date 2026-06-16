@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, develop]
   schedule:
-    - cron: "0 0 * * 0"  # Weekly scan on Sunday
+    - cron: "0 0 * * 0" # Weekly scan on Sunday
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -50,7 +50,7 @@ jobs:
         run: uv sync --dev
 
       - name: Run Pip Audit
-        uses: pypa/pip-audit@v2
+        uses: pypa/pip-audit@v2.10.1
         with:
           vulnerability-flags: settings
 

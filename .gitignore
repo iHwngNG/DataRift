@@ -291,7 +291,6 @@ vitest.workspace.ts
 # CI/CD & DEPLOYMENT
 # =============================================================================
 
-.github/
 .gitlab-ci.yml
 .travis.yml
 bitbucket-pipelines.yml
@@ -299,7 +298,6 @@ appveyor.yml
 circle.yml
 Jenkinsfile
 azure-pipelines.yml
-.github/workflows/*
 
 # Docker
 .dockerignore
@@ -321,7 +319,6 @@ azure-pipelines.yml
 site/
 *.markdown
 README.md
-CHANGELOG.md
 HISTORY.md
 CONTRIBUTING.md
 
