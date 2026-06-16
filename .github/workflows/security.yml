@@ -50,7 +50,7 @@ jobs:
         run: uv sync --dev
 
       - name: Run Pip Audit
-        uses: pypa/pip-audit@v1.1.2
+        uses: pypa/pip-audit@v2.1.1
         with:
           vulnerability-flags: settings
 
