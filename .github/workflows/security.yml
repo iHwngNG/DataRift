@@ -28,13 +28,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@9e7f8e5a6d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0
+        uses: github/codeql-action/init@v3
         with:
           languages: python
           queries: security-and-quality
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@9e7f8e5a6d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0
+        uses: github/codeql-action/analyze@v3
         with:
           category: "/language:python"
 
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@7dffb0fc8f4ba2b692675c2019722def9e1e3f36
+        uses: actions/dependency-review-action@v4
         with:
           fail-on-severity: moderate
           license-check: true
