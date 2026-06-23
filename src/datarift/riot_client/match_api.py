@@ -18,6 +18,7 @@ async def get_match_ids_by_puuid(
     api_key: str,
     start_time: int | None = None,
     count: int = 100,
+    start: int = 0,
 ) -> list[str]:
     """Fetch match IDs for a given PUUID.
 
@@ -27,6 +28,7 @@ async def get_match_ids_by_puuid(
         api_key: Riot API key.
         start_time: Unix timestamp for earliest match (optional).
         count: Number of match IDs to retrieve (default 100, max 100).
+        start: Pagination offset (default 0).
 
     Returns:
         List of match IDs.
@@ -44,7 +46,7 @@ async def get_match_ids_by_puuid(
     base_url = f"https://{cluster}.api.riotgames.com"
     path = f"/lol/match/v5/matches/by-puuid/{puuid}/ids"
 
-    params: dict[str, Any] = {"count": count}
+    params: dict[str, Any] = {"count": count, "start": start}
     if start_time is not None:
         params["startTime"] = start_time
 

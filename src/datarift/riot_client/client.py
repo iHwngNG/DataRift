@@ -23,10 +23,26 @@ from tenacity import (
 RIOT_API_KEY: str = os.environ["RIOT_API_KEY"]  # Raises KeyError if not set
 
 
+class RateLimitError(Exception):
+    """Raised when Riot API returns 429 Too Many Requests."""
+
+    def __init__(self, retry_after_seconds: float | None = None) -> None:
+        """Initialize RateLimitError.
+
+        Args:
+            retry_after_seconds: Optional seconds to wait before retrying.
+
+        """
+        self.retry_after_seconds = retry_after_seconds
+        super().__init__(
+            f"Rate limited. Retry after {retry_after_seconds}s" if retry_after_seconds else "Rate limited"
+        )
+
+
 def _is_retryable_status_code(exception: BaseException) -> bool:
     """Check if the exception indicates a retryable HTTP error."""
     if isinstance(exception, httpx.HTTPStatusError):
-        return exception.response.status_code in (429, 500, 502, 503, 504)
+        return exception.response.status_code in (500, 502, 503, 504)
     if isinstance(exception, httpx.TransportError):
         return True
     return False
@@ -112,6 +128,15 @@ class RiotClient:
         async def _request() -> httpx.Response:
             async with semaphore:
                 response = await client.request(method, path, **kwargs)
+                if response.status_code == 429:
+                    retry_after = None
+                    retry_after_header = response.headers.get("Retry-After")
+                    if retry_after_header is not None:
+                        try:
+                            retry_after = float(retry_after_header)
+                        except ValueError:
+                            pass
+                    raise RateLimitError(retry_after_seconds=retry_after)
                 response.raise_for_status()
                 return response
 

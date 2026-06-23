@@ -6,7 +6,7 @@ for League-Entries-V4 and Match-V5 APIs.
 
 from __future__ import annotations
 
-from datarift.riot_client.client import RiotClient
+from datarift.riot_client.client import RateLimitError, RiotClient
 from datarift.riot_client.league_api import (
     Division,
     QueueType,
@@ -25,6 +25,7 @@ from datarift.riot_client.regions import get_cluster, platform_to_region
 __all__ = [
     "Division",
     "QueueType",
+    "RateLimitError",
     "RiotClient",
     "SummonerEntry",
     "Tier",
