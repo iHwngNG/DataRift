@@ -109,7 +109,6 @@ obj/
 *.vssscc
 *.bak
 *.pid
-*.lock
 project.lock.json
 project.fragment.lock.json
 artifacts/
