@@ -50,6 +50,10 @@ class SummonerEntry:
     losses: int
     tier: str
     queue_type: str
+    veteran: bool
+    inactive: bool
+    fresh_blood: bool
+    hot_streak: bool
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> SummonerEntry:
@@ -72,6 +76,10 @@ class SummonerEntry:
             losses=data["losses"],
             tier=data["tier"],
             queue_type=data["queueType"],
+            veteran=data.get("veteran", False),
+            inactive=data.get("inactive", False),
+            fresh_blood=data.get("freshBlood", False),
+            hot_streak=data.get("hotStreak", False),
         )
 
 
