@@ -1,146 +1,218 @@
-variable "name" {
-  description = "Name of the Cloud Run Job"
-  type        = string
-
-  validation {
-    condition     = can(regex("^[a-z0-9-]{1,63}$", var.name))
-    error_message = "Job name must be lowercase, 1-63 characters, and contain only hyphens."
-  }
-}
+# =============================================================================
+# Cloud Run Job Module - Parent
+# =============================================================================
+# This module creates all DataRift pipeline jobs by calling the job/ child module.
+# Variables prefixed with job_ are for the individual job configurations.
 
 variable "location" {
-  description = "GCP region for the job"
-  type        = string
-}
-
-variable "image" {
-  description = "Container image URL to deploy"
+  description = "GCP region for the jobs"
   type        = string
 }
 
 variable "service_account" {
-  description = "Service account email to run the job with"
+  description = "Service account email to run the jobs with"
   type        = string
 }
 
-variable "task_count" {
-  description = "Number of parallel task executions"
+variable "environment" {
+  description = "Environment name (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "gcp_project" {
+  description = "GCP Project ID"
+  type        = string
+}
+
+variable "image_tag" {
+  description = "Docker image tag for all jobs"
+  type        = string
+}
+
+variable "gcs_bucket" {
+  description = "GCS bucket name for data lakehouse"
+  type        = string
+}
+
+variable "shard_count" {
+  description = "Number of shards for worker jobs"
   type        = number
   default     = 1
-
-  validation {
-    condition     = var.task_count >= 1 && var.task_count <= 100
-    error_message = "Task count must be between 1 and 100."
-  }
 }
 
-variable "cpu" {
-  description = "CPU limit (e.g., '1', '2')"
-  type        = string
-  default     = "1"
+variable "is_dev_environment" {
+  description = "Enable dev-specific hardcoded configuration"
+  type        = bool
+  default     = false
 }
 
-variable "memory" {
-  description = "Memory limit (e.g., '512Mi', '1Gi')"
-  type        = string
-  default     = "512Mi"
-
-  validation {
-    condition     = can(regex("^[0-9]+(Mi|Gi)$", var.memory))
-    error_message = "Memory must be in Mi or Gi format (e.g., '512Mi', '1Gi')."
-  }
-}
-
-variable "timeout" {
-  description = "Maximum execution timeout in seconds (max 3600 for Cloud Run Jobs)"
-  type        = number
-  default     = 300
-}
-
-variable "env" {
-  description = "List of environment variables as objects with name and value"
-  type = list(object({
-    name  = string
-    value = string
-  }))
-  default = []
-}
-
-variable "secret_env" {
-  description = "List of environment variables from Secret Manager"
-  type = list(object({
-    name        = string
-    secret_name = string
-    version     = string
-  }))
-  default = []
-}
-
-variable "volume_mounts" {
-  description = "List of volume mounts as objects with name and mount_path"
-  type = list(object({
-    name       = string
-    mount_path = string
-  }))
-  default = []
-}
-
-# NOTE: min_instances and max_instances apply to Cloud Run Services (v2), not Jobs.
-# Jobs are transient and run to completion. Remove these if you don't need them for Services.
-
-# variable "min_instances" {
-#   description = "Minimum number of instances (0 for scale-to-zero)"
-#   type        = number
-#   default     = 0
-#
-#   validation {
-#     condition     = var.min_instances >= 0 && var.min_instances <= 100
-#     error_message = "Min instances must be between 0 and 100."
-#   }
-# }
-
-# variable "max_instances" {
-#   description = "Maximum number of instances"
-#   type        = number
-#   default     = 10
-#
-#   validation {
-#     condition     = var.max_instances >= 1 && var.max_instances <= 100
-#     error_message = "Max instances must be between 1 and 100."
-#   }
-# }
-
-variable "vpc_connector" {
-  description = "VPC Access Connector ID for private networking"
+variable "platform" {
+  description = "Target platform for jobs"
   type        = string
   default     = null
 }
 
-variable "vpc_egress" {
-  description = "VPC egress setting (ALL_TRAFFIC, PRIVATE_RANGES_ONLY)"
+variable "tier" {
+  description = "Target tier for jobs"
   type        = string
-  default     = "PRIVATE_RANGES_ONLY"
-
-  validation {
-    condition     = var.vpc_egress == "ALL_TRAFFIC" || var.vpc_egress == "PRIVATE_RANGES_ONLY"
-    error_message = "VPC egress must be ALL_TRAFFIC or PRIVATE_RANGES_ONLY."
-  }
+  default     = null
 }
 
-variable "ingress" {
-  description = "Ingress settings for the job (ALL, INTERNAL, INTERNAL_LOAD_BALANCER)"
+variable "division" {
+  description = "Target division for jobs"
   type        = string
-  default     = "INGRESS_TRAFFIC_ALL"
+  default     = null
 }
 
-variable "labels" {
-  description = "Labels to apply to the job"
+variable "page_limit" {
+  description = "Limit of pages to fetch"
+  type        = number
+  default     = null
+}
+
+variable "base_labels" {
+  description = "Base labels shared across all jobs"
   type        = map(string)
   default     = {}
 }
 
-variable "invoker_members" {
-  description = "IAM members who can invoke the job (e.g., 'serviceAccount:sa@project.iam.gserviceaccount.com')"
+# -----------------------------------------------------------------------------
+# Job A Variables
+# -----------------------------------------------------------------------------
+
+variable "job_a_task_count" {
+  description = "Task count for Job A"
+  type        = number
+  default     = 1
+}
+
+variable "job_a_cpu" {
+  description = "CPU limit for Job A"
   type        = string
-  default     = "allAuthenticatedUsers"
+  default     = "1"
+}
+
+variable "job_a_memory" {
+  description = "Memory limit for Job A"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "job_a_timeout" {
+  description = "Timeout for Job A"
+  type        = number
+  default     = 300
+}
+
+# -----------------------------------------------------------------------------
+# Job B Distributor Variables
+# -----------------------------------------------------------------------------
+
+variable "job_b_distributor_task_count" {
+  description = "Task count for Job B distributor"
+  type        = number
+  default     = 1
+}
+
+variable "job_b_distributor_cpu" {
+  description = "CPU limit for Job B distributor"
+  type        = string
+  default     = "1"
+}
+
+variable "job_b_distributor_memory" {
+  description = "Memory limit for Job B distributor"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "job_b_distributor_timeout" {
+  description = "Timeout for Job B distributor"
+  type        = number
+  default     = 300
+}
+
+# -----------------------------------------------------------------------------
+# Job B Worker Variables
+# -----------------------------------------------------------------------------
+
+variable "job_b_worker_task_count" {
+  description = "Task count for Job B worker"
+  type        = number
+  default     = 1
+}
+
+variable "job_b_worker_cpu" {
+  description = "CPU limit for Job B worker"
+  type        = string
+  default     = "1"
+}
+
+variable "job_b_worker_memory" {
+  description = "Memory limit for Job B worker"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "job_b_worker_timeout" {
+  description = "Timeout for Job B worker"
+  type        = number
+  default     = 300
+}
+
+# -----------------------------------------------------------------------------
+# Job C Distributor Variables
+# -----------------------------------------------------------------------------
+
+variable "job_c_distributor_task_count" {
+  description = "Task count for Job C distributor"
+  type        = number
+  default     = 1
+}
+
+variable "job_c_distributor_cpu" {
+  description = "CPU limit for Job C distributor"
+  type        = string
+  default     = "1"
+}
+
+variable "job_c_distributor_memory" {
+  description = "Memory limit for Job C distributor"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "job_c_distributor_timeout" {
+  description = "Timeout for Job C distributor"
+  type        = number
+  default     = 300
+}
+
+# -----------------------------------------------------------------------------
+# Job C Worker Variables
+# -----------------------------------------------------------------------------
+
+variable "job_c_worker_task_count" {
+  description = "Task count for Job C worker"
+  type        = number
+  default     = 1
+}
+
+variable "job_c_worker_cpu" {
+  description = "CPU limit for Job C worker"
+  type        = string
+  default     = "1"
+}
+
+variable "job_c_worker_memory" {
+  description = "Memory limit for Job C worker"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "job_c_worker_timeout" {
+  description = "Timeout for Job C worker"
+  type        = number
+  default     = 300
 }
