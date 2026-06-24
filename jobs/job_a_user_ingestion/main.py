@@ -79,6 +79,10 @@ LEAGUE_SCHEMA = pa.schema(
         ("league_points", pa.int32()),
         ("wins", pa.int32()),
         ("losses", pa.int32()),
+        ("veteran", pa.bool_()),
+        ("inactive", pa.bool_()),
+        ("fresh_blood", pa.bool_()),
+        ("hot_streak", pa.bool_()),
         ("region", pa.string()),
         ("platform", pa.string()),
         ("_ingested_at", pa.timestamp("us")),
@@ -156,7 +160,9 @@ async def _fetch_apex_entries(
     tier: str,
 ) -> list[dict[str, Any]]:
     """Fetch entries for apex tiers (Challenger, GrandMaster, Master)."""
-    endpoint = f"/lol/league/v4/{tier}leagues/by-queue/RANKED_SOLO_5x5"
+    # Tier must be UPPERCASE for the Riot API endpoint
+    endpoint = f"/lol/league/v4/{tier.upper()}leagues/by-queue/RANKED_SOLO_5x5"
+    print(f"[DEBUG] Fetching apex entries: {endpoint}")
     try:
         data: Any = await client.get_json(endpoint)
         entries = data.get("entries", [])
@@ -178,10 +184,13 @@ async def _fetch_regular_entries(
 
     while True:
         try:
+            # Correct format: /lol/league/v4/entries/{queue}/{tier}/{division}?page=N
+            # Tier must be UPPERCASE
             endpoint = (
-                f"/lol/league/v4/entries/{tier}/{division}"
-                f"?queue=RANKED_SOLO_5x5&page={page}"
+                f"/lol/league/v4/entries/RANKED_SOLO_5x5/{tier.upper()}/{division}"
+                f"?page={page}"
             )
+            print(f"[DEBUG] Fetching entries: {endpoint}")
             entries: Any = await client.get_json(endpoint)
 
             if not entries:
@@ -215,11 +224,15 @@ def _transform_entry(
         "puuid": entry.get("puuid", ""),
         "summoner_id": entry.get("summonerId", ""),
         "summoner_name": entry.get("summonerName", ""),
-        "tier": tier.lower(),
-        "division": (division or "all").lower(),
+        "tier": tier.upper(),
+        "division": division or "all",
         "league_points": entry.get("leaguePoints", 0),
         "wins": entry.get("wins", 0),
         "losses": entry.get("losses", 0),
+        "veteran": entry.get("veteran", False),
+        "inactive": entry.get("inactive", False),
+        "fresh_blood": entry.get("freshBlood", False),
+        "hot_streak": entry.get("hotStreak", False),
         "region": region,
         "platform": platform,
         "_ingested_at": datetime.now(UTC),
